@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../public/css/styles.css" th:href="@{/css/styles.css}" />
+        <link rel="icon" href="../../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+
+        <title th:text="${post.title}">View Post</title>
+    </head>
+
+    <body>
+
+        <!--<header th:replace="layout::site-header" />-->
+        <header>
+            <a href="index.html" th:href="@{/}"><img src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
+            <a href="users/login.html" th:href="@{/users/login}">Login</a>
+            <a href="users/register.html" th:href="@{/users/register}">Register</a>
+            <a href="posts/index.html" th:href="@{/posts}">Post</a>
+            <a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
+            <a href="users/index.html" th:href="@{/users}">Users</a>
+            <div id="logged-in-info">
+                <span>Hello, <b>(user)</b></span>
+                <form method="post" th:action="@{/users/logout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </div>
+        </header>
+
+        <main id="posts">
+
+            <article>
+
+                <h2 class="title" th:text="${post.title}">Post Title</h2>
+                <div class="date">
+                    <i>Posted on</i>
+                    <span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}">16-Dec-2016</span>
+                            <span th:if="${post.author}" th:remove="tag">
+                                <i>by</i>
+                                <span th:text="${post.author.fullName != null ?
+                                        post.author.fullName : post.author.username}">Jaturong Chaleeyuth</span>
+                            </span>
+                </div>
+                <p class="content" th:utext="${post.body}">Post content</p>
+            </article>
+
+            <!--<footer th:replace="layout :: site-footer" />-->
+            <footer>
+                &copy; Spring MVC Blog System, 2016
+            </footer>
+
+        </main>
+
+    </body>
+</html>
